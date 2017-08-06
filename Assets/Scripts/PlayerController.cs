@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
@@ -8,36 +6,38 @@ public class PlayerController : MonoBehaviour {
     public float rotationSpeed;
     //CharacterController controller;
 
+    Rigidbody rigiBody { get { return GetComponent<Rigidbody>(); } }
+
     void Start()
     {
-        //controller = GetComponent<CharacterController>();
+        rigiBody.AddTorque(Vector3.left * 1000);
     }
 
-    
+
     void Update()
     {
-		/*
-		transform.Rotate (new Vector3(0, Input.GetAxis ("Horizontal") * rotationSpeed, 0));
+        /*
+        transform.Rotate (new Vector3(0, Input.GetAxis ("Horizontal") * rotationSpeed, 0));
         Vector3 forward = Input.GetAxis ("Vertical") * transform.forward * moveSpeed;
 
         controller.Move (forward);
         controller.SimpleMove (Physics.gravity);
-		transform.Rotate (new Vector3 (-xRotation, 0, 0));
+        transform.Rotate (new Vector3 (-xRotation, 0, 0));
 
-		*/
-		float movementHorizontal = Input.GetAxis("Horizontal");
-		float movementVertical = Input.GetAxis("Vertical");
+        */
+        float movementHorizontal = Input.GetAxis("Horizontal");
+        float movementVertical = Input.GetAxis("Vertical");
 
-		Vector3 movementVector = new Vector3(movementHorizontal, 0.0f, movementVertical);
+        Vector3 movementVector = new Vector3(movementHorizontal, 0.0f, movementVertical);
 
-		GetComponent<Rigidbody>().AddForce(movementVector * moveSpeed * Time.deltaTime);
+        rigiBody.AddForce(movementVector * moveSpeed * Time.deltaTime);
 
     }
 
-	void FixedUpdate()
-	{
+    void FixedUpdate()
+    {
 
-	}
+    }
 
     void OnTriggerEnter(Collider other)
     {
